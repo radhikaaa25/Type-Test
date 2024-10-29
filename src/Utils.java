@@ -18,14 +18,24 @@ public class Utils {
         }
         return errors + Math.abs(originalWords.length - typedWords.length);
     }
-
+    public static int countWords(String text) {
+        // Trim the text to avoid counting leading/trailing spaces
+        text = text.trim();
+        // Return 0 if the string is empty
+        if (text.isEmpty()) {
+            return 0;
+        }
+        // Split the text by whitespace and count the resulting array's length
+        String[] words = text.split("\\s+");
+        return words.length;
+    }
     public static String getRandomText() {
         String[] texts = {
-                "Practice makes perfect.",
-                "Typing fast is a valuable skill.",
-                "Consistency is key to improvement.",
-                "Focus on accuracy, then build speed.",
-                "Take breaks to avoid burnout."
+                "Pink ponies and purple giraffes roamed the field. Cotton candy grew from the ground as a chocolate river meandered off to the side.",
+                "The chair sat in the corner where it had been for over 25 years. The only difference was there was someone actually sitting in it.",
+                "Sometimes that's just the way it has to be. Sure, there were probably other options, but he didn't let them enter his mind.",
+                "What have you noticed today? I noticed that if you outline the eyes, nose, and mouth on your face with your finger, you make an \"I\" which makes perfect sense, but is something I never noticed before.",
+                "She reached her goal, exhausted. Even more chilling to her was that the euphoria that she thought she'd feel upon reaching it wasn't there."
         };
         return texts[(int)(Math.random() * texts.length)];
     }
