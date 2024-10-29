@@ -1,4 +1,4 @@
-// Utils.java
+
 public class Utils {
     public static int calculateWPM(String text, int timeInSeconds) {
         int words = text.trim().split("\\s+").length;
@@ -19,13 +19,10 @@ public class Utils {
         return errors + Math.abs(originalWords.length - typedWords.length);
     }
     public static int countWords(String text) {
-        // Trim the text to avoid counting leading/trailing spaces
         text = text.trim();
-        // Return 0 if the string is empty
         if (text.isEmpty()) {
             return 0;
         }
-        // Split the text by whitespace and count the resulting array's length
         String[] words = text.split("\\s+");
         return words.length;
     }

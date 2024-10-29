@@ -1,4 +1,4 @@
-// MainApp.java
+
 import javax.swing.*;
 
 public class MainApp {

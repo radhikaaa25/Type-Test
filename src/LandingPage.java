@@ -10,6 +10,7 @@ public class LandingPage extends JFrame {
         setTitle("TypeTest");
         setSize(500, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
         // Create ImagePanel with a GIF background
@@ -69,6 +70,7 @@ public class LandingPage extends JFrame {
 
         add(panel);
         setVisible(true);
+        dispose();
     }
 
     private JPanel createButtonPanel(String text, ActionListener action) {

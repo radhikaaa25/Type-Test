@@ -2,15 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EndPage extends JFrame {
-    public EndPage(String playerName, int wpm, int errors, int totalWords) {
+    public EndPage(String playerName, int wpm, int errors) {
         setTitle("TypeTest - Results");
-        setSize(450, 400);
+        setSize(450, 350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
-        // Calculate accuracy
-        int correctWords = totalWords - errors;
-        double accuracy = (double) correctWords / totalWords * 100;
 
         // Add score to leaderboard
         try {
@@ -22,69 +18,77 @@ public class EndPage extends JFrame {
             e.printStackTrace();
         }
 
-        // Result labels with modern styling
+        // Header label
         JLabel titleLabel = new JLabel("Your Results, " + playerName + "!", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial Black", Font.BOLD, 20));
+        titleLabel.setFont(new Font("Arial Black", Font.BOLD, 22));
         titleLabel.setForeground(new Color(0xFF4081));
 
-        JLabel wpmLabel = new JLabel("WPM: " + wpm);
-        JLabel errorsLabel = new JLabel("Errors: " + errors);
-        JLabel accuracyLabel = new JLabel(String.format("Accuracy: %.2f%%", accuracy));
+        // Circular displays for WPM and Errors
+        JPanel circlePanel = new JPanel();
+        circlePanel.setLayout(new GridLayout(1, 2, 20, 0));
+        circlePanel.add(createCircleDisplay("WPM", wpm, new Color(0x4CAF50)));
+        circlePanel.add(createCircleDisplay("Errors", errors, new Color(0xF44336)));
 
-        wpmLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        errorsLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        accuracyLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-
-        // Progress bar for WPM and accuracy
-        JPanel resultsPanel = new JPanel();
-        resultsPanel.setLayout(new GridLayout(1, 2, 20, 20));
-        resultsPanel.add(createCirclePanel("WPM", wpm));
-        resultsPanel.add(createCirclePanel("Accuracy", (int) accuracy));
-
-        // Action buttons for leaderboard or return to main menu
-        JButton leaderboardButton = new JButton("Leaderboard");
+        // Buttons for navigation
+        JButton leaderboardButton = new JButton("View Leaderboard");
+        leaderboardButton.setBackground(new Color(0x2196F3));
+        leaderboardButton.setForeground(Color.WHITE);
+        leaderboardButton.setFocusPainted(false);
         leaderboardButton.addActionListener(e -> {
             new LeaderboardPage().setVisible(true);
             dispose();
         });
 
         JButton backButton = new JButton("Back to Menu");
+        backButton.setBackground(new Color(0xFF7043));
+        backButton.setForeground(Color.WHITE);
+        backButton.setFocusPainted(false);
         backButton.addActionListener(e -> {
             new LandingPage("").setVisible(true);
             dispose();
         });
 
+        // Layout and styling
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(new Color(0xECEFF1));
         panel.add(titleLabel);
-        panel.add(wpmLabel);
-        panel.add(errorsLabel);
-        panel.add(accuracyLabel);
-        panel.add(resultsPanel);
-        panel.add(leaderboardButton);
-        panel.add(backButton);
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(circlePanel);
+        panel.add(Box.createVerticalStrut(20));
 
-        add(panel);
+        // Button panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(leaderboardButton);
+        buttonPanel.add(backButton);
+        buttonPanel.setBackground(new Color(0xECEFF1));
+
+        // Add components to main frame
+        add(panel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    private JPanel createCirclePanel(String label, int value) {
-        JPanel circlePanel = new JPanel() {
+    private JPanel createCircleDisplay(String label, int value, Color color) {
+        return new JPanel() {
+            @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.setColor(new Color(0xFFC107));
-                g.fillOval(10, 10, 80, 80);
-                g.setColor(new Color(0x4CAF50));
-                g.drawString(label + ": " + value, 30, 50);
+                int size = Math.min(getWidth(), getHeight()) - 10;
+
+                g.setColor(new Color(0xEEEEEE));
+                g.fillOval(10, 10, size, size);
+
+                g.setColor(color);
+                g.setFont(new Font("Arial", Font.BOLD, 16));
+                g.drawString(label, 20, 35);
+
+                g.setFont(new Font("Arial", Font.PLAIN, 28));
+                g.drawString(Integer.toString(value), 40, 70);
             }
         };
-        circlePanel.setPreferredSize(new Dimension(100, 100));
-        return circlePanel;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new EndPage("Player", 75, 3).setVisible(true));
     }
 }
-
-
-
-
-
-
-

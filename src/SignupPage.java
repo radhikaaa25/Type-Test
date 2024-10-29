@@ -11,10 +11,21 @@ public class SignupPage extends JFrame {
         getContentPane().setBackground(new Color(34, 40, 49));
         setLayout(new BorderLayout());
 
+
         JPanel formPanel = new JPanel();
         formPanel.setLayout(new GridLayout(3, 2, 10, 10));
         formPanel.setBackground(new Color(57, 62, 70));
         formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel label=new JLabel();
+        label.setText("Username:");
+        label.setForeground(new Color(255, 255, 255));
+        label.setBackground(new Color(181, 76, 76));
+
+        JLabel label2=new JLabel();
+        label2.setText("Password:");
+        label2.setForeground(new Color(255, 255, 255));
+        label2.setBackground(new Color(181, 76, 76));
 
         JTextField usernameField = new JTextField(20);
         usernameField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -37,9 +48,9 @@ public class SignupPage extends JFrame {
             }
         });
 
-        formPanel.add(new JLabel("Username:", JLabel.RIGHT));
+        formPanel.add(label);
         formPanel.add(usernameField);
-        formPanel.add(new JLabel("Password:", JLabel.RIGHT));
+        formPanel.add(label2);
         formPanel.add(passwordField);
         formPanel.add(registerButton);
 
